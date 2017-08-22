@@ -80,7 +80,7 @@ public class ProductDaoImpl implements ProductDAO{
 	}
 
 	
-	public Product getProductById(String id) {
+	public Product getProductById(Long id) {
 		return (Product) sessionFactory.getCurrentSession().createQuery("from Product where id ='"+id+"'").uniqueResult();
 	}
 	public Product getProductByName(String name) {

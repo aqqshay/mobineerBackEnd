@@ -16,7 +16,7 @@ public interface ProductDAO {
 	
 	public boolean undelete(Product product);			//To enable the product by ID
 	
-	public Product getProductById(String id);			//To delete the product by ID
+	public Product getProductById(Long id);			//To delete the product by ID
 	
 	public Product getProductByName(String name); 		//To delete the product by Product
 }

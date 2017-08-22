@@ -1,19 +1,15 @@
 package com.niit.mobineer.domain;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -29,17 +25,16 @@ public class Cart implements Serializable {
 	private int cartItemCount;
 
 	private int grandTotal;
-	
-	//-----Mapping To User-----//
-	@OneToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="user_id")
-    private User user;
-	
-	//-----Mapping To CartItem-----//
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "cart")
-	private List<CartItem> cartList = new ArrayList<CartItem>(0);
-	
 
+	@OneToOne()
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	//@OneToMany(fetch = FetchType.EAGER, mappedBy = "cart")
+	//@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE) 
+
+	//private List<CartItem> cartList = new ArrayList<CartItem>(0);
 
 	public long getCart_Id() {
 		return cart_Id;
@@ -77,17 +72,11 @@ public class Cart implements Serializable {
 		this.user = user;
 	}
 
-	public List<CartItem> getCartList() {
-		return cartList;
-	}
 
-	public void setCartList(List<CartItem> cartList) {
-		this.cartList = cartList;
-	}
 
 	@Override
 	public String toString() {
 		return "Cart [cart_Id=" + cart_Id + ", cartItemCount=" + cartItemCount + ", grandTotal=" + grandTotal
-				+ ", user=" + user + ", cartList=" + cartList + "]";
+				+ ", user=" + user + "]";
 	}
 }

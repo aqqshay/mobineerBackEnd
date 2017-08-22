@@ -2,7 +2,6 @@ package com.niit.mobineer.domain;
 
 import java.io.Serializable;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,55 +16,36 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.springframework.stereotype.Component;
 
+
 @Component
 @Entity
-@Table(name = "CartItem")
-public class CartItem implements Serializable {
+@Table
+public class OrderedItems implements Serializable
+{
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long cartItem_Id;
+	private long orderedItemId;
+	
+	private int sell_quantity;
 
+	private int total_price;
+	
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "product_id")
 	private Product product;
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-	@JoinColumn(name = "cart_id")
+	@JoinColumn(name = "order_id")
 
 	
-	private Cart cart;
-
-	private int sell_quantity;
-
-	private int total_price;
-
-	public long getCartItem_Id() {
-		return cartItem_Id;
-	}
-
-	public void setCartItem_Id(long cartItem_Id) {
-		this.cartItem_Id = cartItem_Id;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-
+	private OrderDetails orderDetails;
+	
 	public int getSell_quantity() {
 		return sell_quantity;
 	}
@@ -82,9 +62,28 @@ public class CartItem implements Serializable {
 		this.total_price = total_price;
 	}
 
-	@Override
-	public String toString() {
-		return "CartItem [cartItem_Id=" + cartItem_Id + ", product=" + product + ", cart=" + cart + ", sell_quantity="
-				+ sell_quantity + ", total_price=" + total_price + "]";
+	public Product getProduct() {
+		return product;
 	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public long getOrderedItemId() {
+		return orderedItemId;
+	}
+
+	
+	public OrderDetails getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(OrderDetails orderDetails) {
+		this.orderDetails = orderDetails;
+	}
+
+	
+
+	
 }

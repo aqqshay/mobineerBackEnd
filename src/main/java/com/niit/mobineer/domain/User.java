@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
@@ -38,9 +39,9 @@ public class User implements Serializable {
 	
 	
 	//------------------Mapping of User to Cart-----------------//
-	@OneToOne( cascade=CascadeType.ALL , fetch=FetchType.EAGER, mappedBy="user")
-    private Cart cart;
-
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+	@JoinColumn(name = "cart_Id")
+	private Cart cart;
 	
 	
 	//------------------Setter and Getter Methods Declaration----------------//
